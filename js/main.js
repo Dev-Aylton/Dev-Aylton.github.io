@@ -102,6 +102,18 @@ floatingTop.addEventListener("click", () => {
 
 function updateFloatingTop() {
   floatingTop.hidden = window.scrollY < window.innerHeight;
+  if (floatingTop.hidden) return;
+
+  const floatingRect = floatingTop.getBoundingClientRect();
+  const content = document.querySelectorAll(
+    "main p, main h1, main h2, main h3, main a, main button, footer p, footer a"
+  );
+  floatingTop.hidden = Array.from(content).some((element) => {
+    const rect = element.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0
+      && rect.left < floatingRect.right && rect.right > floatingRect.left
+      && rect.top < floatingRect.bottom && rect.bottom > floatingRect.top;
+  });
 }
 
 window.addEventListener("scroll", updateFloatingTop, { passive: true });
@@ -112,30 +124,38 @@ const sectionLinks = Array.from(navigation.querySelectorAll('a[href^="#"]'));
 const observedSections = Array.from(document.querySelectorAll("main section[id]"))
   .filter((section) => sectionLinks.some((link) => link.hash === `#${section.id}`));
 
-if ("IntersectionObserver" in window && observedSections.length > 0) {
-  const visibleSections = new Map();
+function updateCurrentSection() {
   const headerHeight = document.querySelector(".site-header").getBoundingClientRect().height;
-  const navigationObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) visibleSections.set(entry.target, true);
-      else visibleSections.delete(entry.target);
-    });
-
-    const activeSection = Array.from(visibleSections.entries())
-      .sort((left, right) => right[0].getBoundingClientRect().top - left[0].getBoundingClientRect().top)[0];
-    sectionLinks.forEach((link) => {
-      if (activeSection && link.hash === `#${activeSection[0].id}`) {
-        link.setAttribute("aria-current", "true");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  }, {
-    rootMargin: `-${headerHeight}px 0px -65% 0px`,
-    threshold: [0, 0.1, 0.25, 0.5]
+  const scrollPadding = Number.parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+  const sectionMargin = Number.parseFloat(getComputedStyle(observedSections[0]).scrollMarginTop) || 0;
+  const activationLine = scrollPadding + sectionMargin + 8;
+  const visibleSections = observedSections.filter((section) => {
+    const rect = section.getBoundingClientRect();
+    return rect.bottom > headerHeight && rect.top < window.innerHeight;
   });
-  observedSections.forEach((section) => navigationObserver.observe(section));
+  let activeSection = null;
+
+  visibleSections.forEach((section) => {
+    if (section.getBoundingClientRect().top <= activationLine) activeSection = section;
+  });
+
+  const lastSection = observedSections[observedSections.length - 1];
+  if (lastSection && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+    activeSection = lastSection;
+  }
+
+  sectionLinks.forEach((link) => {
+    if (activeSection && link.hash === `#${activeSection.id}`) {
+      link.setAttribute("aria-current", "true");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
 }
+
+window.addEventListener("scroll", updateCurrentSection, { passive: true });
+window.addEventListener("resize", updateCurrentSection);
+updateCurrentSection();
 
 if ("IntersectionObserver" in window && !reducedMotion) {
   const observer = new IntersectionObserver((entries, currentObserver) => {

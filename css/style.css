@@ -33,7 +33,6 @@ html {
 }
 
 body {
-  min-width: 320px;
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
@@ -580,8 +579,17 @@ figure {
   row-gap: 0.75rem;
 }
 
-.copy-email,
+.copy-email {
+  white-space: nowrap;
+}
+
 .contact-phone {
+  gap: 0.3rem;
+  flex-wrap: wrap;
+  white-space: normal;
+}
+
+.contact-phone span {
   white-space: nowrap;
 }
 
