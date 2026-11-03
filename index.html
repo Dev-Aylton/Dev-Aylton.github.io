@@ -107,8 +107,11 @@
           <li>Login <span>com Google</span></li>
         </ul>
         <div class="project-links">
-          <a class="button-link action-primary" href="https://dev-aylton.github.io/gastopro-app/" target="_blank" rel="noopener noreferrer">Abrir o app</a>
-          <a class="button-link action-secondary" href="https://github.com/Dev-Aylton/gastopro-app" target="_blank" rel="noopener noreferrer">Ver o código</a>
+          <div class="action-group">
+            <a class="button-link action-primary" href="https://dev-aylton.github.io/gastopro-app/" target="_blank" rel="noopener noreferrer">Abrir o app</a>
+            <a class="button-link action-secondary" href="https://github.com/Dev-Aylton/gastopro-app" target="_blank" rel="noopener noreferrer">Ver o código</a>
+            <p class="action-status" role="status" aria-live="polite"></p>
+          </div>
         </div>
       </div>
     </section>
@@ -132,8 +135,13 @@
         <h2 id="titulo-contato">Contato</h2>
       </div>
       <div class="section-body contact-links">
-        <a class="button-link action-primary contact-email" href="mailto:ayltondepipa@gmail.com">ayltondepipa@gmail.com</a>
-        <a class="button-link action-secondary" href="https://github.com/Dev-Aylton" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <div class="action-group">
+          <a class="button-link action-primary contact-email" href="mailto:desenvolvedor.aylton@gmail.com">desenvolvedor.aylton@gmail.com</a>
+          <button class="button-link action-secondary copy-email" type="button">Copiar e-mail</button>
+          <a class="button-link action-secondary" href="https://github.com/Dev-Aylton" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button-link action-secondary contact-phone" href="tel:+5584994528791">+55 84 99452-8791</a>
+          <p class="action-status" role="status" aria-live="polite"></p>
+        </div>
         <!-- LinkedIn: adicionar quando existir -->
       </div>
     </section>
@@ -144,5 +152,6 @@
     <p>© Aylton Alberto Araujo</p>
     <a class="back-to-top" href="#inicio">Voltar ao topo</a>
   </footer>
+  <button class="floating-top" type="button" aria-label="Voltar ao topo" hidden>Topo</button>
 </body>
 </html>
