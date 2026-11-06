@@ -32,6 +32,12 @@ html {
   scroll-padding-top: 6.25rem;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   background: var(--color-bg);
@@ -102,6 +108,7 @@ button {
 .wordmark {
   display: inline-flex;
   width: fit-content;
+  min-width: 44px;
   min-height: 44px;
   align-items: center;
   color: var(--color-text);
@@ -294,7 +301,7 @@ figure {
   display: inline-flex;
   width: fit-content;
   max-width: 100%;
-  min-height: 44px;
+  min-height: 48px;
   align-items: center;
   justify-content: center;
   padding: 0.65rem 1.1rem;
@@ -353,7 +360,7 @@ figure {
 
 .hero-portrait {
   display: block;
-  width: min(100%, 10.625rem);
+  width: min(100%, 12rem);
   height: auto;
   aspect-ratio: 4 / 5;
   align-self: center;
@@ -481,6 +488,22 @@ figure {
   font-size: 0.875em;
 }
 
+.education-brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.2rem;
+  padding: 0.1rem 0.25rem;
+  background: #fff;
+  vertical-align: middle;
+}
+
+.education-brand img {
+  display: block;
+  width: 3.2rem;
+  height: auto;
+}
+
 .dash {
   color: var(--color-accent);
 }
@@ -497,6 +520,11 @@ figure {
 .project-intro p {
   margin-bottom: 0;
   color: var(--color-muted);
+}
+
+.project-intro .project-stack {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
 }
 
 .project-facts {
@@ -809,7 +837,7 @@ figure {
   }
 
   .hero-portrait {
-    width: min(100%, 10.625rem);
+    width: min(100%, 12rem);
   }
 
   .mark-caption {
