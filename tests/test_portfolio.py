@@ -1,0 +1,127 @@
+from html.parser import HTMLParser
+from pathlib import Path
+import re
+import unittest
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+class PortfolioParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.ids = set()
+        self.local_assets = []
+        self.external_links = []
+        self.gallery_buttons = 0
+        self.project_articles = 0
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        if "id" in attributes:
+            self.ids.add(attributes["id"])
+        if tag == "article" and "project-card" in attributes.get("class", "").split():
+            self.project_articles += 1
+        if tag == "button" and "gallery-open" in attributes.get("class", "").split():
+            self.gallery_buttons += 1
+        for attribute in ("src", "href"):
+            value = attributes.get(attribute)
+            if not value:
+                continue
+            if value.startswith(("http://", "https://", "mailto:", "#")):
+                if value.startswith("http"):
+                    self.external_links.append(value)
+            else:
+                self.local_assets.append(value)
+
+
+class PortfolioQualityTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.html = (ROOT / "index.html").read_text(encoding="utf-8")
+        cls.css = (ROOT / "css" / "style.css").read_text(encoding="utf-8")
+        cls.js = (ROOT / "js" / "main.js").read_text(encoding="utf-8")
+        cls.readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        cls.parser = PortfolioParser()
+        cls.parser.feed(cls.html)
+
+    def test_document_metadata_and_skip_link(self):
+        self.assertIn('<html lang="pt-BR">', self.html)
+        self.assertIn('name="viewport"', self.html)
+        self.assertIn('class="skip-link"', self.html)
+        self.assertIn("#conteudo", self.html)
+
+    def test_required_sections_exist(self):
+        self.assertEqual(
+            {"inicio", "sobre", "formacao", "projeto", "experiencia", "contato"},
+            {"inicio", "sobre", "formacao", "projeto", "experiencia", "contato"} & self.parser.ids,
+        )
+
+    def test_three_projects_and_gallery_controls_exist(self):
+        self.assertEqual(3, self.parser.project_articles)
+        self.assertGreaterEqual(self.parser.gallery_buttons, 20)
+        for name in ("GastoPro", "OSS Timer", "Tatame"):
+            self.assertIn(name, self.html)
+
+    def test_project_and_local_asset_links_resolve(self):
+        missing = []
+        for value in set(self.parser.local_assets):
+            path = ROOT / value
+            if not path.exists():
+                missing.append(value)
+        self.assertEqual([], missing)
+
+    def test_project_app_links_exist(self):
+        for url in (
+            "https://dev-aylton.github.io/gastopro-app/",
+            "https://dev-aylton.github.io/oss-timer/",
+            "https://dev-aylton.github.io/tatame-app/",
+        ):
+            self.assertIn(url, self.html)
+
+    def test_project_repository_links_exist(self):
+        for url in (
+            "https://github.com/Dev-Aylton/gastopro-app",
+            "https://github.com/Dev-Aylton/oss-timer",
+            "https://github.com/Dev-Aylton/tatame-app",
+        ):
+            self.assertIn(url, self.html)
+
+    def test_oss_timer_mobile_note_is_present(self):
+        self.assertIn("exclusivamente para uso mobile", self.html)
+
+    def test_lightbox_has_accessible_controls_and_keyboard_navigation(self):
+        self.assertIn('class="project-lightbox"', self.html)
+        self.assertIn('aria-label="Fechar imagem ampliada"', self.html)
+        self.assertIn('aria-label="Imagem anterior"', self.html)
+        self.assertIn('aria-label="Próxima imagem"', self.html)
+        self.assertIn("ArrowLeft", self.js)
+        self.assertIn("ArrowRight", self.js)
+        self.assertIn("touchstart", self.js)
+
+    def test_responsive_styles_cover_mobile_and_reduced_motion(self):
+        self.assertIn("@media (max-width: 767px)", self.css)
+        self.assertIn("prefers-reduced-motion: reduce", self.css)
+        self.assertIn("project-lightbox", self.css)
+
+    def test_no_placeholder_text_remains(self):
+        for placeholder in ("Lorem ipsum", "TODO", "FIXME", "Projeto próprio em desenvolvimento"):
+            self.assertNotIn(placeholder, self.html)
+
+    def test_key_files_and_social_assets_exist(self):
+        for relative in (
+            "assets/curriculo-aylton-alberto.pdf",
+            "assets/portfolio-social.jpg",
+            "assets/aylton-sobre.webp",
+            "assets/favicon.svg",
+        ):
+            self.assertTrue((ROOT / relative).is_file(), relative)
+
+    def test_readme_documents_live_projects(self):
+        for project in ("GastoPro", "OSS Timer", "Tatame"):
+            self.assertIn(project, self.readme)
+        self.assertIn("projetos publicados", self.readme.lower())
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
