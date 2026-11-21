@@ -527,6 +527,14 @@ figure {
   font-size: 0.9rem;
 }
 
+.project-intro .project-note {
+  margin-top: 0.75rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-text);
+  font-size: 0.82rem;
+}
+
 .project-facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -582,6 +590,185 @@ figure {
 .project-links {
   gap: 1.5rem;
   padding-top: 1.4rem;
+}
+
+.project-card {
+  padding-bottom: 4.5rem;
+}
+
+.project-card + .project-card {
+  padding-top: 4.5rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.project-card-header {
+  margin-bottom: 1.5rem;
+}
+
+.project-kicker {
+  margin: 0 0 0.35rem;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.project-card-header h3 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.project-gallery {
+  display: grid;
+  gap: 0.75rem;
+  margin: 2rem 0 0;
+  align-items: end;
+}
+
+.project-gallery.gallery-desktop {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.project-gallery.gallery-mobile {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.project-gallery.gallery-mobile + .project-gallery.gallery-mobile {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-gallery figure {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.project-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gallery-open {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.gallery-open::after {
+  position: absolute;
+  right: 0.65rem;
+  bottom: 0.65rem;
+  min-height: 28px;
+  padding: 0.35rem 0.55rem;
+  border: 1px solid rgb(255 255 255 / 65%);
+  background: rgb(15 20 32 / 88%);
+  color: #ffffff;
+  content: "Ampliar";
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform: translateY(0.25rem);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.gallery-open:hover::after,
+.gallery-open:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-open:hover img,
+.gallery-open:focus-visible img {
+  filter: brightness(1.08);
+}
+
+.gallery-open img {
+  transition: filter 140ms ease;
+}
+
+.project-lightbox {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: clamp(4rem, 8vh, 6rem) clamp(3.5rem, 8vw, 7rem) clamp(1.5rem, 5vh, 3rem);
+  border: 0;
+  background: rgb(5 8 15 / 96%);
+  color: #ffffff;
+  overflow: hidden;
+}
+
+.project-lightbox[open] {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.project-lightbox::backdrop {
+  background: rgb(5 8 15 / 96%);
+}
+
+.lightbox-close {
+  position: fixed;
+  z-index: 2;
+  top: 1rem;
+  right: 1.25rem;
+  min-height: 44px;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid rgb(255 255 255 / 55%);
+  background: rgb(15 20 32 / 95%);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.lightbox-arrow {
+  min-height: 44px;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgb(255 255 255 / 55%);
+  background: rgb(15 20 32 / 95%);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.lightbox-stage {
+  display: grid;
+  min-width: 0;
+  max-height: calc(100vh - 8rem);
+  margin: 0;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.lightbox-stage img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 11rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.lightbox-stage figcaption {
+  margin-top: 0.75rem;
+  color: #e2e8f0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-align: center;
 }
 
 .action-group {
@@ -900,6 +1087,57 @@ figure {
 
   .feature-list li span {
     text-align: left;
+  }
+
+  .contact-email {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .project-gallery.gallery-desktop {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-gallery.gallery-mobile {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .project-card {
+    padding-bottom: 3.5rem;
+  }
+
+  .project-card + .project-card {
+    padding-top: 3.5rem;
+  }
+
+  .project-lightbox {
+    padding: 4.5rem 0.75rem 1rem;
+  }
+
+  .project-lightbox[open] {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 0.25rem;
+  }
+
+  .lightbox-arrow {
+    width: 44px;
+    padding: 0;
+    overflow: hidden;
+    color: transparent;
+  }
+
+  .lightbox-arrow::before {
+    display: block;
+    color: #ffffff;
+    font-size: 1.25rem;
+  }
+
+  .lightbox-prev::before {
+    content: "‹";
+  }
+
+  .lightbox-next::before {
+    content: "›";
   }
 
   .contact-section {

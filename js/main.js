@@ -55,6 +55,10 @@ navigation.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && projectLightbox.open) {
+    closeLightbox();
+    return;
+  }
   if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
     closeMenu(true);
   }
@@ -173,3 +177,85 @@ if ("IntersectionObserver" in window && !reducedMotion) {
   });
   root.classList.add("has-reveal");
 }
+
+const projectLightbox = document.querySelector(".project-lightbox");
+const lightboxImage = projectLightbox.querySelector(".lightbox-stage img");
+const lightboxCaption = projectLightbox.querySelector("#lightbox-caption");
+const lightboxClose = projectLightbox.querySelector(".lightbox-close");
+const lightboxPrev = projectLightbox.querySelector(".lightbox-prev");
+const lightboxNext = projectLightbox.querySelector(".lightbox-next");
+let lightboxItems = [];
+let lightboxIndex = 0;
+let lightboxTrigger = null;
+
+function showLightboxImage(index) {
+  if (!lightboxItems.length) return;
+  lightboxIndex = (index + lightboxItems.length) % lightboxItems.length;
+  const image = lightboxItems[lightboxIndex].querySelector("img");
+  lightboxImage.src = image.currentSrc || image.src;
+  lightboxImage.alt = image.alt;
+  lightboxCaption.textContent = `${image.alt} — ${lightboxIndex + 1} de ${lightboxItems.length}`;
+}
+
+function closeLightbox() {
+  if (!projectLightbox.open) return;
+  projectLightbox.close();
+  document.body.style.removeProperty("overflow");
+  if (lightboxTrigger) lightboxTrigger.focus();
+}
+
+document.querySelectorAll(".project-card").forEach((project) => {
+  project.querySelectorAll(".gallery-open").forEach((button) => {
+    button.addEventListener("click", () => {
+      lightboxItems = Array.from(project.querySelectorAll(".gallery-open"));
+      lightboxIndex = lightboxItems.indexOf(button);
+      lightboxTrigger = button;
+      showLightboxImage(lightboxIndex);
+      projectLightbox.showModal();
+      document.body.style.overflow = "hidden";
+    });
+  });
+});
+
+lightboxClose.addEventListener("click", closeLightbox);
+lightboxPrev.addEventListener("click", () => showLightboxImage(lightboxIndex - 1));
+lightboxNext.addEventListener("click", () => showLightboxImage(lightboxIndex + 1));
+
+projectLightbox.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  closeLightbox();
+});
+
+projectLightbox.addEventListener("click", (event) => {
+  if (event.target === projectLightbox) closeLightbox();
+});
+
+projectLightbox.addEventListener("close", () => {
+  document.body.style.removeProperty("overflow");
+  if (lightboxTrigger) lightboxTrigger.focus();
+});
+
+projectLightbox.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    showLightboxImage(lightboxIndex - 1);
+  }
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    showLightboxImage(lightboxIndex + 1);
+  }
+});
+
+let touchStartX = null;
+
+projectLightbox.querySelector(".lightbox-stage").addEventListener("touchstart", (event) => {
+  touchStartX = event.changedTouches[0].clientX;
+}, { passive: true });
+
+projectLightbox.querySelector(".lightbox-stage").addEventListener("touchend", (event) => {
+  if (touchStartX === null) return;
+  const distance = event.changedTouches[0].clientX - touchStartX;
+  touchStartX = null;
+  if (Math.abs(distance) < 50) return;
+  showLightboxImage(lightboxIndex + (distance < 0 ? 1 : -1));
+}, { passive: true });
