@@ -50,6 +50,10 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertIn('name="viewport"', self.html)
         self.assertIn('class="skip-link"', self.html)
         self.assertIn("#conteudo", self.html)
+        self.assertIn("Desenvolvedor full stack com foco em front-end", self.html)
+        self.assertIn("Disponível para oportunidades", self.html)
+        self.assertIn("74 testes", self.html)
+        self.assertIn("47 migrations", self.html)
 
     def test_required_sections_exist(self):
         self.assertEqual(
@@ -58,18 +62,28 @@ class PortfolioQualityTests(unittest.TestCase):
         )
 
     def test_three_projects_and_gallery_controls_exist(self):
-        self.assertEqual(3, self.parser.project_articles)
-        self.assertGreaterEqual(self.parser.gallery_buttons, 20)
-        for name in ("GastoPro", "OSS Timer", "Tatame"):
+        self.assertEqual(4, self.parser.project_articles)
+        self.assertGreaterEqual(self.parser.gallery_buttons, 26)
+        for name in ("GastoPro", "OSS Timer", "Tatame", "Controle-App"):
             self.assertIn(name, self.html)
 
     def test_project_and_local_asset_links_resolve(self):
         missing = []
         for value in set(self.parser.local_assets):
-            path = ROOT / value
+            path = ROOT / value.split("?", 1)[0].split("#", 1)[0]
             if not path.exists():
                 missing.append(value)
         self.assertEqual([], missing)
+
+    def test_controle_app_is_the_first_project(self):
+        controle_position = self.html.index("<h3>Controle-App</h3>")
+        gastopro_position = self.html.index("<h3>GastoPro</h3>")
+        oss_position = self.html.index("<h3>OSS Timer</h3>")
+        tatame_position = self.html.index("<h3>Tatame</h3>")
+        self.assertLess(controle_position, gastopro_position)
+        self.assertLess(controle_position, tatame_position)
+        self.assertLess(gastopro_position, tatame_position)
+        self.assertLess(tatame_position, oss_position)
 
     def test_project_app_links_exist(self):
         for url in (
@@ -84,8 +98,25 @@ class PortfolioQualityTests(unittest.TestCase):
             "https://github.com/Dev-Aylton/gastopro-app",
             "https://github.com/Dev-Aylton/oss-timer",
             "https://github.com/Dev-Aylton/tatame-app",
+            "https://github.com/Dev-Aylton/Controle-App",
         ):
             self.assertIn(url, self.html)
+
+    def test_controle_app_links_and_gallery_exist(self):
+        for url in (
+            "https://dev-aylton.github.io/Controle-App/",
+            "https://dev-aylton.github.io/Controle-App/#/demo",
+        ):
+            self.assertIn(url, self.html)
+        for relative in (
+            "assets/projects/Controle-App/01-notebook-inicio.png",
+            "assets/projects/Controle-App/02-notebook-movimentacoes.png",
+            "assets/projects/Controle-App/03-notebook-vendas.png",
+            "assets/projects/Controle-App/04-notebook-inventario.png",
+            "assets/projects/Controle-App/05-iphone-inicio.png",
+            "assets/projects/Controle-App/06-iphone-movimentacoes.png",
+        ):
+            self.assertTrue((ROOT / relative).is_file(), relative)
 
     def test_oss_timer_mobile_note_is_present(self):
         self.assertIn("exclusivamente para uso mobile", self.html)
@@ -103,6 +134,15 @@ class PortfolioQualityTests(unittest.TestCase):
         self.assertIn("@media (max-width: 767px)", self.css)
         self.assertIn("prefers-reduced-motion: reduce", self.css)
         self.assertIn("project-lightbox", self.css)
+        self.assertIn(".project-section.reveal:not(.is-visible)", self.css)
+        self.assertIn("clamp(1.65rem, 2.5vw, 2.75rem)", self.css)
+        self.assertIn("threshold: 0.02", self.js)
+        self.assertIn('section.id !== "projeto"', self.js)
+
+    def test_project_filters_exist(self):
+        for filter_name in ("todos", "full-stack", "front-end", "mobile"):
+            self.assertIn(f'data-project-filter="{filter_name}"', self.html)
+        self.assertIn("projectFilterStatus.textContent", self.js)
 
     def test_no_placeholder_text_remains(self):
         for placeholder in ("Lorem ipsum", "TODO", "FIXME", "Projeto próprio em desenvolvimento"):

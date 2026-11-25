@@ -28,6 +28,8 @@
 | UC12 | Copiar e-mail | API de área de transferência disponível | Endereço é copiado e status é exibido |
 | UC13 | Visualizar currículo | Arquivo PDF disponível | PDF abre para visualização |
 | UC14 | Navegar em 360 px | Site carregado em viewport estreita | Não há overflow horizontal |
+| UC15 | Abrir Controle-App | Link visível | Aplicação publicada é aberta em nova aba |
+| UC16 | Abrir demonstração do Controle-App | Link visível | Modo demonstração é aberto em nova aba |
 
 ## Executar testes estáticos
 

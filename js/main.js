@@ -22,7 +22,8 @@ try {
   savedTheme = null;
 }
 
-setTheme(savedTheme === "light" ? "light" : "dark");
+const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+setTheme(savedTheme === "light" || (!savedTheme && systemPrefersLight) ? "light" : "dark");
 root.classList.add("js");
 
 themeButton.addEventListener("click", () => {
@@ -33,6 +34,33 @@ themeButton.addEventListener("click", () => {
   } catch (error) {
     // O tema continua funcional mesmo quando o armazenamento não está disponível.
   }
+});
+
+const projectFilterButtons = Array.from(document.querySelectorAll(".project-filter-button"));
+const projectCards = Array.from(document.querySelectorAll(".project-card"));
+const projectFilterStatus = document.querySelector(".project-filter-status");
+
+projectFilterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const filter = button.dataset.projectFilter;
+    let visibleCount = 0;
+
+    projectFilterButtons.forEach((item) => {
+      const active = item === button;
+      item.classList.toggle("is-active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+
+    projectCards.forEach((card) => {
+      const categories = card.querySelector(".project-category")?.textContent ?? "";
+      const visible = filter === "todos" || categories.split(/\s+/).includes(filter);
+      card.hidden = !visible;
+      if (visible) visibleCount += 1;
+    });
+
+    const label = button.textContent.trim();
+    projectFilterStatus.textContent = `${visibleCount} projeto${visibleCount === 1 ? "" : "s"} em ${label}`;
+  });
 });
 
 function closeMenu(returnFocus = false) {
@@ -169,11 +197,13 @@ if ("IntersectionObserver" in window && !reducedMotion) {
         currentObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.02 });
 
   document.querySelectorAll(".content-section").forEach((section) => {
-    section.classList.add("reveal");
-    observer.observe(section);
+    if (section.id !== "projeto") {
+      section.classList.add("reveal");
+      observer.observe(section);
+    }
   });
   root.classList.add("has-reveal");
 }

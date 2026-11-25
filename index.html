@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portfólio de Aylton Alberto, desenvolvedor web front-end e criador dos projetos GastoPro, OSS Timer e Tatame.">
+  <meta name="description" content="Portfólio de Aylton Alberto, desenvolvedor full stack com foco em front-end e criador dos projetos Controle-App, GastoPro, OSS Timer e Tatame.">
   <meta name="theme-color" content="#0f1420">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
   <link rel="canonical" href="https://dev-aylton.github.io/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Aylton Alberto | Desenvolvedor Web Front-End">
-  <meta property="og:description" content="Conheça o portfólio profissional e os projetos GastoPro, OSS Timer e Tatame.">
+  <meta property="og:title" content="Aylton Alberto | Desenvolvedor Full Stack">
+  <meta property="og:description" content="Conheça o portfólio profissional e os projetos Controle-App, GastoPro, OSS Timer e Tatame.">
   <meta property="og:url" content="https://dev-aylton.github.io/">
   <meta property="og:image" content="https://dev-aylton.github.io/assets/portfolio-social.jpg">
   <meta property="og:image:secure_url" content="https://dev-aylton.github.io/assets/portfolio-social.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Aylton Alberto, desenvolvedor web front-end, com sua foto e tecnologias principais.">
+  <meta property="og:image:alt" content="Aylton Alberto, desenvolvedor full stack, com sua foto e tecnologias principais.">
   <meta name="twitter:card" content="summary_large_image">
-  <title>Aylton Alberto | Desenvolvedor Web Front-End</title>
+  <title>Aylton Alberto | Desenvolvedor Full Stack</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/main.js" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=2">
+  <script src="js/main.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -47,17 +47,17 @@
   <main id="conteudo">
     <section class="hero section-shell" id="inicio" aria-labelledby="titulo-principal">
       <div class="hero-copy">
-        <p class="eyebrow">Desenvolvedor web front-end</p>
+        <p class="eyebrow">Desenvolvedor full stack com foco em front-end</p>
         <h1 id="titulo-principal">Aylton<br><span>Alberto</span></h1>
-        <p class="hero-summary">Estudante de ADS, com foco em aplicações web e PWAs desenvolvidos com HTML5, CSS3, JavaScript Vanilla e Supabase.</p>
+        <p class="hero-summary">Desenvolvedor de aplicações web completas com React, TypeScript, JavaScript, PWAs e Supabase. Disponível para oportunidades de desenvolvedor júnior, estágio e projetos web.</p>
         <div class="hero-links">
           <a class="button-link action-primary" href="#projeto">Ver projetos</a>
-          <a class="button-link action-secondary" href="#contato">Contato</a>
+          <a class="button-link action-secondary" href="assets/curriculo-aylton-alberto.pdf" download="curriculo-aylton-alberto.pdf">Baixar currículo</a>
         </div>
       </div>
       <div class="hero-mark">
         <img class="hero-portrait" src="assets/aylton-sobre.webp" alt="Foto de Aylton Alberto Araujo" width="640" height="800">
-        <span class="mark-caption">Aylton Alberto<br>Desenvolvedor júnior</span>
+        <span class="mark-caption">Aylton Alberto<br>Desenvolvedor full stack</span>
       </div>
       <div class="hero-index" aria-hidden="true">PORTFÓLIO</div>
     </section>
@@ -68,7 +68,7 @@
         <h2 id="titulo-sobre">Sobre<br>mim.</h2>
       </div>
       <div class="section-body about-body">
-        <p class="lead-copy">Sou estudante de Análise e Desenvolvimento de Sistemas e busco minha primeira oportunidade como desenvolvedor júnior. Desenvolvo aplicações web responsivas e PWAs com HTML5, CSS3, JavaScript, IndexedDB e Supabase. Meu portfólio reúne o GastoPro, para gestão financeira pessoal; o OSS Timer, para treinos de jiu-jitsu e exercícios intervalados; e o Tatame, para administração de academias de artes marciais. Trago experiência sólida em gestão de operações e aplico disciplina, organização e consistência também à engenharia de software.</p>
+        <p class="lead-copy">Sou estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor full stack com foco em front-end, buscando minha primeira oportunidade profissional na área. Construo aplicações web responsivas e PWAs com React, TypeScript, JavaScript, IndexedDB e Supabase, além de atuar na modelagem de dados, segurança por RLS e integrações. Meu portfólio reúne o Controle-App, para gestão multiempresa de estoque e operações; o GastoPro, para finanças pessoais; o OSS Timer, para treinos intervalados; e o Tatame, para administração de academias de artes marciais.</p>
         <figure class="portrait">
           <img src="assets/aylton-sobre.webp" alt="Foto de Aylton Alberto Araujo" width="640" height="800">
           <figcaption>Aylton Alberto</figcaption>
@@ -100,19 +100,67 @@
         <h2 id="titulo-projeto">Projetos desenvolvidos</h2>
       </div>
       <div class="section-body">
+        <div class="project-filter" role="group" aria-label="Filtrar projetos">
+          <button class="project-filter-button is-active" type="button" data-project-filter="todos" aria-pressed="true">Todos</button>
+          <button class="project-filter-button" type="button" data-project-filter="full-stack" aria-pressed="false">Full stack</button>
+          <button class="project-filter-button" type="button" data-project-filter="front-end" aria-pressed="false">Front-end</button>
+          <button class="project-filter-button" type="button" data-project-filter="mobile" aria-pressed="false">Mobile</button>
+          <p class="project-filter-status" role="status" aria-live="polite"></p>
+        </div>
         <article class="project-card">
+          <span class="project-category" hidden>full-stack front-end</span>
+          <header class="project-card-header">
+            <p class="project-kicker">PWA · Gestão de estoque multiempresa</p>
+            <h3>Controle-App</h3>
+          </header>
+          <div class="project-intro">
+            <p>Aplicação progressiva desenvolvida para centralizar estoque, compras, vendas, inventário, equipe e auditoria em empresas e ambientes distintos. Resolve o controle de operações críticas com isolamento de dados, permissões por cargo, operação offline e sincronização idempotente.</p>
+            <p class="project-stack">React 19 · TypeScript · Vite · Supabase · PostgreSQL · Dexie/IndexedDB · PWA</p>
+          </div>
+          <div class="project-facts" aria-label="Destaques do Controle-App">
+            <p><strong>Multiempresa</strong><span>Ambientes, permissões e dados isolados por empresa</span></p>
+            <p><strong>Offline</strong><span>Catálogo e fila segura sincronizados ao reconectar</span></p>
+            <p><strong>v5.1.0</strong><span>PWA completa para operação e demonstração</span></p>
+          </div>
+          <ul class="feature-list" aria-label="Funcionalidades do Controle-App">
+            <li>Operações <span>Entradas, saídas, perdas, transferências e estornos</span></li>
+            <li>Gestão <span>Inventário, compras, vendas, alertas e relatórios</span></li>
+            <li>Segurança <span>RLS, cargos, auditoria e política de privacidade</span></li>
+          </ul>
+          <div class="project-gallery gallery-desktop" aria-label="Imagens desktop do Controle-App">
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Controle-App - início no notebook"><img src="assets/projects/Controle-App/01-notebook-inicio.png" alt="Controle-App - início no notebook" loading="lazy"></button></figure>
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Controle-App - movimentações no notebook"><img src="assets/projects/Controle-App/02-notebook-movimentacoes.png" alt="Controle-App - movimentações no notebook" loading="lazy"></button></figure>
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Controle-App - vendas no notebook"><img src="assets/projects/Controle-App/03-notebook-vendas.png" alt="Controle-App - vendas no notebook" loading="lazy"></button></figure>
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Controle-App - inventário no notebook"><img src="assets/projects/Controle-App/04-notebook-inventario.png" alt="Controle-App - inventário no notebook" loading="lazy"></button></figure>
+          </div>
+          <div class="project-gallery gallery-mobile" aria-label="Imagens mobile do Controle-App">
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Controle-App - início no celular"><img src="assets/projects/Controle-App/05-iphone-inicio.png" alt="Controle-App - início no celular" loading="lazy"></button></figure>
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Controle-App - movimentações no celular"><img src="assets/projects/Controle-App/06-iphone-movimentacoes.png" alt="Controle-App - movimentações no celular" loading="lazy"></button></figure>
+          </div>
+          <div class="project-links">
+            <div class="action-group">
+              <a class="button-link action-primary" href="https://dev-aylton.github.io/Controle-App/" target="_blank" rel="noopener noreferrer">Abrir o app</a>
+              <a class="button-link action-secondary" href="https://dev-aylton.github.io/Controle-App/#/demo" target="_blank" rel="noopener noreferrer">Abrir demonstração</a>
+              <a class="button-link action-secondary" href="https://github.com/Dev-Aylton/Controle-App" target="_blank" rel="noopener noreferrer">Ver o código</a>
+              <p class="action-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-category" hidden>full-stack front-end</span>
           <header class="project-card-header">
             <p class="project-kicker">PWA · Gestão financeira</p>
             <h3>GastoPro</h3>
           </header>
           <div class="project-intro">
             <p>Aplicação responsiva para organização das finanças pessoais, com receitas, despesas, cartões, empréstimos, metas e indicadores de saúde financeira.</p>
-            <p class="project-stack">HTML5 · CSS3 · JavaScript · Chart.js · IndexedDB · Supabase</p>
+            <p class="project-stack">Versão 4.81 · HTML5 · CSS3 · JavaScript · Chart.js · IndexedDB · Supabase</p>
           </div>
           <div class="project-facts" aria-label="Destaques do GastoPro">
             <p><strong>PWA</strong><span>Instalável e com funcionamento offline</span></p>
             <p><strong>Privado</strong><span>Dados locais e sincronização opcional</span></p>
-            <p><strong>600+</strong><span>Testes automatizados para validar funcionalidades</span></p>
+            <p><strong>670</strong><span>Casos automatizados para validar funcionalidades</span></p>
           </div>
           <ul class="feature-list" aria-label="Funcionalidades do GastoPro">
             <li>Importação de extratos <span>CSV, OFX e PDF</span></li>
@@ -143,6 +191,45 @@
         </article>
 
         <article class="project-card">
+          <span class="project-category" hidden>full-stack front-end</span>
+          <header class="project-card-header">
+            <p class="project-kicker">PWA · Gestão de academia</p>
+            <h3>Tatame</h3>
+          </header>
+          <div class="project-intro">
+            <p>Solução completa para centralizar alunos, presença, graduações, pagamentos, planos de treino, avisos e comunicação em academias de jiu-jítsu.</p>
+            <p class="project-stack">Versão 5.26 · HTML5 · CSS3 · JavaScript · Supabase · PWA · GitHub Pages</p>
+          </div>
+          <div class="project-facts" aria-label="Destaques do Tatame">
+            <p><strong>4 perfis</strong><span>Administrador, professor, instrutor e aluno</span></p>
+            <p><strong>Completo</strong><span>Alunos, cobranças, planos e comunicação</span></p>
+            <p><strong>47 migrations</strong><span>Estrutura evolutiva do banco PostgreSQL no Supabase</span></p>
+          </div>
+          <ul class="feature-list" aria-label="Funcionalidades do Tatame">
+            <li>Gestão acadêmica <span>Presenças, graduações e convites</span></li>
+            <li>Financeiro <span>Cobranças e confirmação de pagamentos</span></li>
+            <li>Comunicação <span>Avisos, grade de aulas e planos semanais ou mensais</span></li>
+          </ul>
+          <div class="project-gallery gallery-desktop" aria-label="Imagens desktop do Tatame">
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - painel do professor no notebook"><img src="assets/projects/Tatame/tatame-professor-notebook-home.png" alt="Tatame - painel do professor no notebook" loading="lazy"></button></figure>
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - planos no notebook"><img src="assets/projects/Tatame/tatame-professor-notebook-planos.png" alt="Tatame - planos no notebook" loading="lazy"></button></figure>
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - pagamentos no notebook"><img src="assets/projects/Tatame/tatame-professor-notebook-pagamentos.png" alt="Tatame - pagamentos no notebook" loading="lazy"></button></figure>
+          </div>
+          <div class="project-gallery gallery-mobile" aria-label="Imagens mobile do Tatame">
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - painel do professor no iPhone"><img src="assets/projects/Tatame/tatame-professor-iphone-home.png" alt="Tatame - painel do professor no iPhone" loading="lazy"></button></figure>
+            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - planos no iPhone"><img src="assets/projects/Tatame/tatame-professor-iphone-planos.png" alt="Tatame - planos no iPhone" loading="lazy"></button></figure>
+          </div>
+          <div class="project-links">
+            <div class="action-group">
+              <a class="button-link action-primary" href="https://dev-aylton.github.io/tatame-app/" target="_blank" rel="noopener noreferrer">Abrir o app</a>
+              <a class="button-link action-secondary" href="https://github.com/Dev-Aylton/tatame-app" target="_blank" rel="noopener noreferrer">Ver o código</a>
+              <p class="action-status" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <span class="project-category" hidden>front-end mobile</span>
           <header class="project-card-header">
             <p class="project-kicker">PWA · Treino intervalado</p>
             <h3>OSS Timer</h3>
@@ -150,12 +237,12 @@
           <div class="project-intro">
             <p>Aplicativo progressivo criado para acompanhar treinos de jiu-jítsu, rondas e exercícios intervalados com interface responsiva e alto contraste.</p>
             <p class="project-note">Projeto concebido exclusivamente para uso mobile. A visualização em notebook preserva a interface, mas não representa o formato ideal de utilização.</p>
-            <p class="project-stack">HTML5 · CSS3 · JavaScript · Web App Manifest · Service Worker</p>
+            <p class="project-stack">Versão 0.9.56 · HTML5 · CSS3 · JavaScript · Web App Manifest · Service Worker</p>
           </div>
           <div class="project-facts" aria-label="Destaques do OSS Timer">
             <p><strong>Tabata</strong><span>Treinos personalizados e repetição de rounds</span></p>
             <p><strong>Voz</strong><span>Orientações em português e sinais sonoros</span></p>
-            <p><strong>Local</strong><span>Treinos e histórico armazenados no dispositivo</span></p>
+            <p><strong>74 testes</strong><span>Validação da lógica de treino e dos recursos do PWA</span></p>
           </div>
           <ul class="feature-list" aria-label="Funcionalidades do OSS Timer">
             <li>Timer dedicado <span>Rondas e cronômetro livre</span></li>
@@ -180,42 +267,6 @@
           </div>
         </article>
 
-        <article class="project-card">
-          <header class="project-card-header">
-            <p class="project-kicker">PWA · Gestão de academia</p>
-            <h3>Tatame</h3>
-          </header>
-          <div class="project-intro">
-            <p>Solução completa para centralizar alunos, presença, graduações, pagamentos, planos de treino, avisos e comunicação em academias de jiu-jítsu.</p>
-            <p class="project-stack">HTML5 · CSS3 · JavaScript · Supabase · PWA · GitHub Pages</p>
-          </div>
-          <div class="project-facts" aria-label="Destaques do Tatame">
-            <p><strong>4 perfis</strong><span>Administrador, professor, instrutor e aluno</span></p>
-            <p><strong>Completo</strong><span>Alunos, cobranças, planos e comunicação</span></p>
-            <p><strong>Responsivo</strong><span>Interfaces para desktop e dispositivos móveis</span></p>
-          </div>
-          <ul class="feature-list" aria-label="Funcionalidades do Tatame">
-            <li>Gestão acadêmica <span>Presenças, graduações e convites</span></li>
-            <li>Financeiro <span>Cobranças e confirmação de pagamentos</span></li>
-            <li>Comunicação <span>Avisos, grade de aulas e planos semanais ou mensais</span></li>
-          </ul>
-          <div class="project-gallery gallery-desktop" aria-label="Imagens desktop do Tatame">
-            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - painel do professor no notebook"><img src="assets/projects/Tatame/tatame-professor-notebook-home.png" alt="Tatame - painel do professor no notebook" loading="lazy"></button></figure>
-            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - planos no notebook"><img src="assets/projects/Tatame/tatame-professor-notebook-planos.png" alt="Tatame - planos no notebook" loading="lazy"></button></figure>
-            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - pagamentos no notebook"><img src="assets/projects/Tatame/tatame-professor-notebook-pagamentos.png" alt="Tatame - pagamentos no notebook" loading="lazy"></button></figure>
-          </div>
-          <div class="project-gallery gallery-mobile" aria-label="Imagens mobile do Tatame">
-            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - painel do professor no iPhone"><img src="assets/projects/Tatame/tatame-professor-iphone-home.png" alt="Tatame - painel do professor no iPhone" loading="lazy"></button></figure>
-            <figure><button class="gallery-open" type="button" aria-label="Ampliar Tatame - planos no iPhone"><img src="assets/projects/Tatame/tatame-professor-iphone-planos.png" alt="Tatame - planos no iPhone" loading="lazy"></button></figure>
-          </div>
-          <div class="project-links">
-            <div class="action-group">
-              <a class="button-link action-primary" href="https://dev-aylton.github.io/tatame-app/" target="_blank" rel="noopener noreferrer">Abrir o app</a>
-              <a class="button-link action-secondary" href="https://github.com/Dev-Aylton/tatame-app" target="_blank" rel="noopener noreferrer">Ver o código</a>
-              <p class="action-status" role="status" aria-live="polite"></p>
-            </div>
-          </div>
-        </article>
       </div>
     </section>
 
